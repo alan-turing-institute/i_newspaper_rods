@@ -4,6 +4,9 @@ Tests for Issue
 
 from unittest import TestCase
 import os
+import os.path
+import urllib2
+import urlparse
 
 from ..issue import Issue
 
@@ -17,9 +20,11 @@ class TestIssue(TestCase):
         '''
         Load in the test file
         '''
-        with open(os.path.join(os.path.dirname(__file__),
-                               'fixtures', '2000_04_24.xml')) as fixture:
-            self.issue = Issue(fixture)
+        url = os.path.join(os.path.dirname(__file__),
+                           'fixtures', '2000_04_24.xml')
+        url = urlparse.urljoin("file:", url)
+        fixture = urllib2.urlopen(url)
+        self.issue = Issue(fixture)
 
     def test_date(self):
         '''

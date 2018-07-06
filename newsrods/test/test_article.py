@@ -4,6 +4,9 @@ Tests for Article
 
 from unittest import TestCase
 import os
+import os.path
+import urllib2
+import urlparse
 
 from ..issue import Issue
 
@@ -17,9 +20,11 @@ class TestPage(TestCase):
         '''
         Load the standard test file
         '''
-        with open(os.path.join(os.path.dirname(__file__),
-                               'fixtures', '2000_04_24.xml')) as fixture:
-            issue = Issue(fixture)
+        url = os.path.join(os.path.dirname(__file__),
+                           'fixtures', '2000_04_24.xml')
+        url = urlparse.urljoin("file:", url)
+        fixture = urllib2.urlopen(url)
+        issue = Issue(fixture)
         self.article = issue.articles[0]
 
     def test_words_in_article(self):
