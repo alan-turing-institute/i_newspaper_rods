@@ -1,0 +1,5 @@
+https://raw.githubusercontent.com/UCL/i_newspaper_rods/monopoly/newsrods/test/fixtures/2000_04_24.xml
+https://ig.ft.com/static/sites/2015/eu-referendum-1975-archive/samples/FTDA-1991-0629.xml
+https://ig.ft.com/static/sites/2015/eu-referendum-1975-archive/samples/FTDA-1966-1126.xml
+https://ig.ft.com/static/sites/2015/eu-referendum-1975-archive/samples/FTDA-1939-0811.xml
+https://github.com/jameshnsears/xqa-test-data/blob/master/DAQU-1931-0321.xml
