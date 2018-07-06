@@ -399,7 +399,6 @@ source activate py27
 mkdir blpaper
 sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-uun>@sg.datastore.ed.ac.uk:<path-in-uoe-datastore> blpaper
 ```
-
 Create data directory on Lustre:
 
 ```
@@ -413,6 +412,9 @@ Copy data file `0000164_19010101.xml` into `lustre` file system:
 ```
 cp blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/0000164_19010101.xml /mnt/lustre/<your-uun>/blpaper/
 ```
+**Important note:**
+
+* Do **not** mount the DataStore directory directly onto Lustre. Urika compute nodes have no network access and so can't access DataStore via the mount. Also, for efficient processing, data movement needs to be minimised. Copy the data into Lustre as above.
 
 Set data file permissions:
 
