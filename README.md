@@ -399,6 +399,7 @@ source activate py27
 mkdir blpaper
 sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-uun>@sg.datastore.ed.ac.uk:<path-in-uoe-datastore> blpaper
 ```
+
 Create data directory on Lustre:
 
 ```
