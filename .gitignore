@@ -113,3 +113,7 @@ analysis/
 *.html
 .RData
 .Rhistory
+
+# fab auto-built directories
+local
+standalone
