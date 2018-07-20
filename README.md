@@ -225,7 +225,7 @@ cat standalone/result.yml
 
 If using the sample data in `oids.txt`, you should see:
 
-```
+```bash
 1939:
 - [them, 9]
 - [mr, 29]
@@ -268,12 +268,9 @@ pytest
 
 ### Troubleshooting: `pyspark: command not found`
 
-If you get:
+If when running `fab standalone` you get:
 
-```
-fab bash
-```
-```
+```bash
 setup:query=queries/articles_containing_words.py,datafile=query_args/interesting_gender_words.txt,number_oid=5
 test
 ...
@@ -296,13 +293,13 @@ export PATH=~/spark-2.3.0-bin-hadoop2.7/bin:$PATH
 
 If, when running `fab` you see:
 
-```
+```bash
 ImportError: No module named api
 ```
 
 Then check your version of `Fabric` e.g.
 
-```
+```bash
 pip freeze | grep Fabric
 ```
 
@@ -386,10 +383,10 @@ chmod u+rx /mnt/lustre/<your-urika-username>/blpaper/*.xml
 
 ### Update OIDS file
 
-Change `oids.txt` to be the path to your file e.g.:
+Change `oids.txt` to be the path to your files e.g.:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/blpaper/ -name *xml > oids.txt
+find /mnt/lustre/<your-urika-username>/blpaper/ -name "*xml" > oids.txt
 ```
 
 Check:
