@@ -1,40 +1,21 @@
 # i_Newspaper_RODS
 
-This project uses batched Apache PySpark queries to run queries over
-the Times Digital Archive. It is assumed that all queries are grouped
-by year, so that the results of different years can be concatenated
-together without any processing.
+This project uses batched Apache PySpark queries to run queries over the Times Digital Archive. It is assumed that all queries are grouped by year, so that the results of different years can be concatenated together without any processing.
 
-While iRODS is in the name of the project, there is actualy little in
-the code that ties it to the iRODS system. All iRODS interaction is
-limited to a single fabric tasks, and does not happen at runtime. Data
-is fetched by HTTP (from UCL's WOS), however, this could be easily
-changed. The majority of work in this version of the code has gone
-into parsing and manipulating the Issue and Article XML.
+While iRODS is in the name of the project, there is actualy little in the code that ties it to the iRODS system. All iRODS interaction is limited to a single fabric tasks, and does not happen at runtime. Data is fetched by HTTP (from UCL's WOS), however, this could be easily changed. The majority of work in this version of the code has gone into parsing and manipulating the Issue and Article XML.
 
-Currently, the iRODS and HPC-related components are only compatible
-with UCL's internal resources including their Legion HPC
-resource. However, the code can be run standalone also.
+Currently, the iRODS and HPC-related components are only compatible with UCL's internal resources including their Legion HPC resource. However, the code can be run standalone also.
 
 ---
 
 ## Architecture Motivation
 
-The goal of this branch, where the compute is not done as a single
-PySpark run, but rather as a larger number of smaller, single node,
-PySpark executions has mutiple reasons:
+The goal of this branch, where the compute is not done as a single PySpark run, but rather as a larger number of smaller, single node, PySpark executions has mutiple reasons:
 
-* Support for partial failure, with an easy way to resubmit the failed
-  task.  
-* Better chances of running on a larger number of machines. As these
-  tasks are generally considered to be I/O bound - in the time spent
-  fetching each individual file from the remote - having more nodes
-  involved in the process should increase the execution speed (due to
-  having more bandwidth available). 
-  - This was motivated by the fact that, at the moment, Legion does
-    not give a way of saying how many actual machines are required.
-* Allows work to be done even if only one machine is currently
-  available.
+* Support for partial failure, with an easy way to resubmit the failed task.  
+* Better chances of running on a larger number of machines. As these tasks are generally considered to be I/O bound - in the time spent fetching each individual file from the remote - having more nodes involved in the process should increase the execution speed (due to having more bandwidth available). 
+  - This was motivated by the fact that, at the moment, Legion does not give a way of saying how many actual machines are required.
+* Allows work to be done even if only one machine is currently available.
 
 ---
 
@@ -48,23 +29,19 @@ The `epcc-master` branch currently does not work for UCL systems. This is becaus
 
 * Apache Spark.
 * Python 2.7.
-* iCommands. Iif you're on Mac OS X, install Kanki, see below.
+* iCommands. If you're on Mac OS X, install Kanki, see below.
 
 **Installing iRODS iCommands locally on Mac OS X Sierra**
 
-While it looks like you can install iCommands with `brew install
-irods`, in actual fact that version is too old to be usable with UCL's
-iRODS system.
+While it looks like you can install iCommands with `brew install irods`, in actual fact that version is too old to be usable with UCL's iRODS system.
 
 You need to install [Kanki](https://github.com/ilarik/kanki-irodsclient).
 
-You have to install the most recent version (not the stable one) to
-work with the newer version of Mac OS X.
+You have to install the most recent version (not the stable one) to work with the newer version of Mac OS X.
 
 While it is hidden in the documentation, remember the following steps: 
 
-* Create `~/.irods/irods_environment.json` with the following contents
-  (this combines both the instructions for UCL and Kanki).
+* Create `~/.irods/irods_environment.json` with the following contents (this combines both the instructions for UCL and Kanki).
 
 ```json
 {
@@ -99,8 +76,7 @@ iinit
 
 ## Running locally
 
-Any query can be tested on your local machine, using a tiny subset of
-the total file archive. This is acheived as follows.
+Any query can be tested on your local machine, using a tiny subset of the total file archive. This is acheived as follows.
 
 Mac OS X:
 
@@ -109,9 +85,7 @@ fab --set DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH setup:query=queries/articles_cont
 test
 ```
 
-Note that the `DYLD_LIBRARY_PATH` must be provided explicitly on Mac
-OS X as it cannot be passed to sub-shells automatically due to System
-Integrity Protection (SIP).
+Note that the `DYLD_LIBRARY_PATH` must be provided explicitly on Mac OS X as it cannot be passed to sub-shells automatically due to System Integrity Protection (SIP).
 
 Otherwise:
 
@@ -121,12 +95,7 @@ fab setup:query=queries/articles_containing_words.py,datafile=query_args/interes
 
 ### Running on HPC resources
 
-In theory this project can be run on either Legion or Grace. However,
-testing has only been done on Legion. Also, the rsd-modules modules
-(which include Spark which this project requires) have not yet been
-set up on Grace. However, once that has all been set up, the same
-commands should work for Grace if the command `legion` is substituted
-for `grace`, with the same parameters. 
+In theory this project can be run on either Legion or Grace. However, testing has only been done on Legion. Also, the rsd-modules modules (which include Spark which this project requires) have not yet been set up on Grace. However, once that has all been set up, the same commands should work for Grace if the command `legion` is substituted for `grace`, with the same parameters. 
 
 You can run the program to run with:
 
@@ -140,17 +109,13 @@ You can see the status of your jobs with:
 fab legion:username=<YOUR_UCL_USER_ID> stat
 ```
 
-**Note**: the `prepare` and `sub` tasks must be run as part of the
-same `fab` invocation because they create a folder with the current
-time and date on Legion to store all the data.
+**Note**: the `prepare` and `sub` tasks must be run as part of the same `fab` invocation because they create a folder with the current time and date on Legion to store all the data.
 
 ---
 
 ## Standalone users
 
-If you don't have access to UCL's resources, you can run queries on
-your local machine, using a tiny subset of the total file
-archive.
+If you don't have access to UCL's resources, you can run queries on your local machine, using a tiny subset of the total file archive.
 
 ### Local machine requirements
 
@@ -339,12 +304,7 @@ Then check your version of `Fabric` e.g.
 pip freeze | grep Fabric
 ```
 
-It should be 1.x e.g. 1.14.0 and not 2.x. Fabric changed between
-version 1 and 2. See
-
-See [fabric](https://github.com/fabric/fabric/issues/1743) issue [no
-module named fabric.api
-#1743](https://github.com/fabric/fabric/issues/1743).
+It should be 1.x e.g. 1.14.0 and not 2.x. Fabric changed between version 1 and 2. See [fabric](https://github.com/fabric/fabric/issues/1743) issue [no module named fabric.api#1743](https://github.com/fabric/fabric/issues/1743).
 
 ---
 
@@ -424,7 +384,7 @@ chmod u+rx /mnt/lustre/<your-urika-username>/blpaper/*.xml
 
 ### Update OIDS file
 
-Change oids.txt to be the path to your file e.g.:
+Change `oids.txt` to be the path to your file e.g.:
 
 ```bash
 find /mnt/lustre/<your-urika-username>/blpaper/ -name *xml > oids.txt
@@ -436,7 +396,7 @@ Check:
 cat oids.txt
 ```
 
-You should see
+You should see:
 
 ```bash
 /mnt/lustre/<your-urika-username>/blpaper/0000164_19010101.xml
