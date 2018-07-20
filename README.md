@@ -271,7 +271,9 @@ pytest
 If you get:
 
 ```
-$ fab bash
+fab bash
+```
+```
 setup:query=queries/articles_containing_words.py,datafile=query_args/interesting_gender_words.txt,number_oid=5
 test
 ...
