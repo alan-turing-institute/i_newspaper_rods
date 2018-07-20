@@ -375,7 +375,7 @@ conda env list
 ```
 # conda environments:
 #
-py27                  *  /home/users/michaelj/.conda/envs/py27
+py27                  *  /home/users/<your-urika-username>/.conda/envs/py27
 root                     /opt/cray/anaconda3/4.1.1
 ```
 
@@ -397,22 +397,21 @@ source activate py27
 
 ```bash
 mkdir blpaper
-sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-uun>@sg.datastore.ed.ac.uk:<path-in-uoe-datastore> blpaper
+sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-urika-username>@sg.datastore.ed.ac.uk:<path-in-uoe-datastore> blpaper
 ```
 
 Create data directory on Lustre:
 
-```
-mkdir -P /mnt/lustre/<your-uun>/blpaper
+```bash
+mkdir -p /mnt/lustre/<your-urika-username>/blpaper/xmls
 ```
 
-Alternatively, use `<your-urika-username>` instead of `<uun>`.
+Copy data file `0000164_19010101.xml` into Lustre:
 
-Copy data file `0000164_19010101.xml` into `lustre` file system:
+```bash
+cp blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/0000164_19010101.xml /mnt/lustre/<your-urika-username>/blpaper/
+```
 
-```
-cp blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/0000164_19010101.xml /mnt/lustre/<your-uun>/blpaper/
-```
 **Important note:**
 
 * Do **not** mount the DataStore directory directly onto Lustre. Urika compute nodes have no network access and so can't access DataStore via the mount. Also, for efficient processing, data movement needs to be minimised. Copy the data into Lustre as above.
@@ -420,15 +419,27 @@ cp blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/0000164_19010101.xml /mnt/lus
 Set data file permissions:
 
 ```bash
-chmod u+rx /mnt/lustre/<your-uun>/blpaper/0000164_19010101.xml
+chmod u+rx /mnt/lustre/<your-urika-username>/blpaper/*.xml
 ```
 
 ### Update OIDS file
 
 Change oids.txt to be the path to your file e.g.:
 
+```bash
+find /mnt/lustre/<your-urika-username>/blpaper/ -name *xml > oids.txt
 ```
-/mnt/lustre/<your-uun>/blpaper/0000164_19010101.xml
+
+Check:
+
+```bash
+cat oids.txt
+```
+
+You should see
+
+```bash
+/mnt/lustre/<your-urika-username>/blpaper/0000164_19010101.xml
 ```
 
 ### Submit Spark job
@@ -443,19 +454,21 @@ zip -r newsrods.zip newsrods/
 
 Submit Spark job:
 
-```
+```bash
 spark-submit --py-files newsrods.zip newsrods/standalone_runner.py
 ```
 
 ### Check results
 
 ```bash
+wc result.yml
 head result.yml
 ```
 
 You should see:
 
 ```
+73 219 968 result.yml
 1901:
 - [mary, 6]
 - [his, 44]
@@ -465,29 +478,11 @@ You should see:
 - [brother, 4]
 - [queen, 11]
 - [duke, 6]
-- [charles, 14]
-- [ram, 1]
-- [it, 62]
-- [he, 44]
-- [martin, 6]
-- [prince, 4]
-- [mr, 45]
-```
-
-```bash
-wc result.yml
-```
-
-You should see:
-
-```
-73 219 968 result.yml
 ```
 
 ### Comparing results files
 
-Note that results files may differ in the word ordering. A naive way
-of comparing results files is to do, for example:
+Note that results files may differ in the word ordering. A very naive way of comparing results files is to do, for example:
 
 ```bash
 sort results1.yml > sorted_results1.yml
@@ -497,23 +492,31 @@ cmp sorted_results1.yml sorted_results2.yml
 
 ### Troubleshooting: `result.yml` is `{}`
 
-If you see:
+If you run:
 
+```bash
+head result.yml
 ```
-$ head result.yml
+
+and see:
+
+```bash
 {}
 ```
 
-then check the permissions of your data files. This can arise if, for
-example, your data file has permissions like:
+then check the permissions of your data files. This can arise if, for example, your data file has permissions like:
 
+```bash
+ls -l /mnt/lustre/<your-urika-username>/blpaper/0000164_19010101.xml
 ```
-$ ls -l /mnt/lustre/<your-uun>/blpaper/0000164_19010101.xml
----------- 1 <your-uun> at01 3374189 May 31 13:57
+```bash
+---------- 1 <your-urika-username> at01 3374189 May 31 13:57
 ```
 
 ---
 
-## GalenP newspaper data examples
+## Notes
+
+### GalenP newspaper data examples
 
 https://www.ft.com/content/514f00a0-a0fe-3b2c-99e0-3be8201f9e8c
