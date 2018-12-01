@@ -369,6 +369,9 @@ Copy data file `0000164_19010101.xml` into Lustre:
 
 ```bash
 cp blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/0000164_19010101.xml /mnt/lustre/<your-urika-username>/blpaper/
+
+#or use the news_copy script stored in deploy directory 
+./news_copy.sh $HOME/blpaper/xmls/ /mnt/lustre/<username>/blpaper 
 ```
 
 **Important note:**
