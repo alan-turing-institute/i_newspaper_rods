@@ -5,16 +5,19 @@ A runner to run the analysis directly.
 from newsrods.sparkrods import get_streams
 from newsrods.query import do_query  # noqa # pylint: disable=all
 
-from pyspark import SparkContext  # pylint: disable=import-error
+from pyspark import SparkContext, SparkConf  # pylint: disable=import-error
 import yaml
-
+import sys
 
 def main():
     '''
     Link the file loading with the query
     '''
-
-    context = SparkContext(appName="Newspapers")
+    num_cores=sys.argv[1]
+    conf = SparkConf()
+    conf.setAppName("Newspapers")
+    conf.set("spark.cores.max", num_cores)
+    context = SparkContext(conf=conf)
     issues = get_streams(context, source="oids.txt")
     results = do_query(issues, 'input.data')
 
