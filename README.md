@@ -417,7 +417,7 @@ zip -r newsrods.zip newsrods/
 Submit Spark job:
 
 ```bash
-spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144
+nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
 ```
 (144 --> to indidcate the number of cores to use --> 144/36 == number of workers)
 
