@@ -381,7 +381,7 @@ cp blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/0000164_19010101.xml /mnt/lus
 Set data file permissions:
 
 ```bash
-chmod u+rx /mnt/lustre/<your-urika-username>/blpaper/*.xml
+chmod -R u+rx /mnt/lustre/<your-urika-username>/blpaper/*.xml
 ```
 
 ### Update OIDS file
