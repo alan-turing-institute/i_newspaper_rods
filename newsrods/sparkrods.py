@@ -13,7 +13,7 @@ def open_stream(url):
     return raw
 
 
-def get_streams(context,
+def get_streams(context, num_cores,
                 source="oids.txt"):
     '''
     Turn a list of oids in a file into a RDD of Issues.
@@ -22,7 +22,7 @@ def get_streams(context,
     are_urls = len(oids) > 0 and \
         (oids[0].lower().startswith("http://") or \
          oids[0].lower().startswith("https://"))
-    rddoids = context.parallelize(oids)
+    rddoids = context.parallelize(oids, num_cores)
     if (are_urls):
         issues = rddoids.map(lambda url: open_stream(url)) \
                             .map(lambda raw: Issue(raw))
