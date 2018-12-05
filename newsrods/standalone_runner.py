@@ -18,7 +18,7 @@ def main():
     conf.setAppName("Newspapers")
     conf.set("spark.cores.max", num_cores)
     context = SparkContext(conf=conf)
-    issues = get_streams(context, source="oids.txt")
+    issues = get_streams(context, num_cores, source="oids.txt")
     results = do_query(issues, 'input.data')
 
     with open('result.yml', 'w') as result_file:
