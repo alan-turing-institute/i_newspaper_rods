@@ -489,5 +489,5 @@ Latest query: fab standalone.setup:query=queries/article_xml_with_words.py,dataf
 (Find all the articles with “Krakatoa and/or Krakatua “ terms)
 
 Results --> analysis directory: 
-mv the results.yml into the analysis
-python extractOnlyText.py --> returns the results into test.json)
+	mv the results.yml into the analysis
+	python extractOnlyText.py --> returns the results into test.json)
