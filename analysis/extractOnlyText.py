@@ -7,6 +7,8 @@ import yaml
 import json
 
 FILENAMES = ['./result.1.yml']
+with open("BLN_list.txt", "r+") as f:
+    newspapers_list = f.readlines()
 
 i = 1
 for fname in FILENAMES:
@@ -29,11 +31,15 @@ for fname in FILENAMES:
 		page.append(i.split("_")[-1])
 	    id_xml = page_total[0].split("_")[:2]
 	    id_newspaper = page_total[0].split("_")[:1]
+	    for newspaper in newspapers_list:
+		if "".join(id_newspaper) in newspaper:
+                    id_name=newspaper 
             info_article={
 		"title":" ".join(title).replace(' - ', ''),
 		"page":" ".join(page).replace(' - ', ''),
 		"content":" ".join(content).replace(' - ', ''),
 		"id_newspaper": "".join(id_newspaper),
+                "id_name": id_name,
 		"id_issue":"_".join(id_xml)}
             text_year[day].append(info_article)
 	     
