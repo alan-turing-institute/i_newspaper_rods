@@ -483,3 +483,11 @@ ls -l /mnt/lustre/<your-urika-username>/blpaper/0000164_19010101.xml
 ### GalenP newspaper data examples
 
 https://www.ft.com/content/514f00a0-a0fe-3b2c-99e0-3be8201f9e8c
+
+Latest query: fab standalone.setup:query=queries/article_xml_with_words.py,datafile=query_args/interesting_words.txt,number_oid=5 
+
+(Find all the articles with “Krakatoa and/or Krakatua “ terms)
+
+Results --> analysis directory: 
+mv the results.yml into the analysis
+python extractOnlyText.py --> returns the results into test.json)
