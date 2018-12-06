@@ -484,9 +484,12 @@ ls -l /mnt/lustre/<your-urika-username>/blpaper/0000164_19010101.xml
 
 https://www.ft.com/content/514f00a0-a0fe-3b2c-99e0-3be8201f9e8c
 
-Latest query: fab standalone.setup:query=queries/article_xml_with_words.py,datafile=query_args/interesting_words.txt,number_oid=5 
+Latest query: Find all the articles with “Krakatoa and/or Krakatua “ terms
 
-(Find all the articles with “Krakatoa and/or Krakatua “ terms)
+```bash
+fab standalone.setup:query=queries/article_xml_with_words.py,datafile=query_args/interesting_words.txt,number_oid=5 
+```
+
 
 Analysis directory: 
 ```bash
