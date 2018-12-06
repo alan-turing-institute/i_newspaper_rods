@@ -493,6 +493,6 @@ fab standalone.setup:query=queries/article_xml_with_words.py,datafile=query_args
 
 Analysis directory: 
 ```bash
-	cp standalone/results.yml analysis/.
+	cp standalone/result.yml analysis/result.1.yml
 	python extractOnlyText.py --> returns the results into test.json
 ```
