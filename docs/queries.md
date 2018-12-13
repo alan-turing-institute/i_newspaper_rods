@@ -58,17 +58,15 @@ Expected results for `oids.txt`:
 
 ```
 {}
-``
-
-The outputs can be parsed into a JSON file as follows:
-
-```bash
-cp standalone/result.yml analysis/result.1.yml
-cd analysis
-python extractOnlyText.py
 ```
 
-This outputs a file `test.json` e.g.
+`results.xml` will contain XML fragments with articles matching the query, indexed by timestamp. These can be converted into a JSON document with both the matching articles and metadata about each article as follows:
+
+```bash
+python analysis/extractOnlyText.py  analysis/BLN_list.txt standalone/result.yml result.json
+```
+
+The JSON file has the following format:
 
 ```
 {
@@ -85,7 +83,7 @@ This outputs a file `test.json` e.g.
     ...
 ```
 
-A helper file, `analysis/BLN_list.txt`, with a list of newspaper names is used.
+`analysis/BLN_list.txt` is a helperfile with a plain-text list of newspaper names.
 
 ---
 
