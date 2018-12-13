@@ -63,7 +63,7 @@ Expected results for `oids.txt`:
 `results.xml` will contain XML fragments with articles matching the query, indexed by timestamp. These can be converted into a JSON document with both the matching articles and metadata about each article as follows:
 
 ```bash
-python analysis/extractOnlyText.py  analysis/BLN_list.txt standalone/result.yml result.json
+python analysis/filter_query_results.py  analysis/BLN_list.txt standalone/result.yml result.json
 ```
 
 The JSON file has the following format:
