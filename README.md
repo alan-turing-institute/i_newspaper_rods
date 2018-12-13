@@ -1,10 +1,13 @@
-# TDS Newspapers Data Analysis
+# TDA and British Library Newspapers Data Analysis
 
-This repository contains code to analyse British Library Newspapers data is from [Gale](https://www.gale.com), a division of [CENGAGE](https://www.cengage.com/). The data is in 5 parts e.g. [Part I: 1800-1900](https://www.gale.com/uk/c/british-library-newspapers-part-i). For links to all 5 parts, see [British Library Newspapers](https://www.gale.com/uk/s?query=british+library+newspapers). The complete data consists of ~1TB of digitised versions of newspapers from the 18th to the early 20th century. Each newspaper has an associated folder of XML documents where each XML document corresponds to a single issue of the newspaper. Each XML document conforms to a British Library-specific XML schema.
+The code is designed to query the following data:
+
+* [Times Digital Archive](https://www.gale.com/uk/c/the-times-digital-archive) (TDA) from [Gale](https://www.gale.com), a division of [CENGAGE](https://www.cengage.com/).
+* British Library Newspapers data is from [Gale](https://www.gale.com), a division of [CENGAGE](https://www.cengage.com/). The data is in 5 parts e.g. [Part I: 1800-1900](https://www.gale.com/uk/c/british-library-newspapers-part-i). For links to all 5 parts, see [British Library Newspapers](https://www.gale.com/uk/s?query=british+library+newspapers). The complete data consists of ~1TB of digitised versions of newspapers from the 18th to the early 20th century. Each newspaper has an associated folder of XML documents where each XML document corresponds to a single issue of the newspaper. Each XML document conforms to a British Library-specific XML schema.
 
 ---
 
-## University College London usage
+## University College London and TDA
 
 There is little in the code that ties it to the iRODS system. All iRODS interaction is limited to a single fabric tasks, and does not happen at runtime. Data is fetched by HTTP (from UCL's WOS), however, this could be easily changed. The majority of work in this version of the code has gone into parsing and manipulating the Issue and Article XML.
 
@@ -25,7 +28,7 @@ See [Running within UCL](./docs/ucl/run.md).
 
 ---
 
-## Analysing humanities data using Cray Urika-GX
+## Analysing humanities data using Cray Urika-GX and British Library Newspapers
 
 The "epcc-sparkrods" branch contains a version of the code that has been updated and extended by Rosa Filgueira and Mike Jackson of [EPCC](https://www.epcc.ed.ac.uk) in their role as members of the [Research Engineering Group](https://www.turing.ac.uk/research/research-engineering) of the [The Alan Turing Institute](https://www.turing.ac.uk).
 
