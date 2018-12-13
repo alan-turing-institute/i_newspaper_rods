@@ -13,7 +13,7 @@ def open_stream(url):
     return raw
 
 
-def get_streams(context, num_cores,
+def get_streams(context, num_cores=1,
                 source="oids.txt"):
     '''
     Turn a list of oids in a file into a RDD of Issues.

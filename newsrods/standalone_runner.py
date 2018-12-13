@@ -13,7 +13,10 @@ def main():
     '''
     Link the file loading with the query
     '''
-    num_cores=sys.argv[1]
+
+    num_cores = 1
+    if len(sys.argv) > 1:
+        num_cores = sys.argv[1]
     conf = SparkConf()
     conf.setAppName("Newspapers")
     conf.set("spark.cores.max", num_cores)
