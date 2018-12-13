@@ -99,6 +99,16 @@ cmp sorted_results1.yml sorted_results2.yml
 
 ---
 
+## Check the number of executors used
+
+A quick-and-dirty way to get this number is to run:
+
+```bash
+grep Exec output_submission | wc -l
+```
+
+---
+
 ## Troubleshooting: `result.yml` is `{}`
 
 If you run:
