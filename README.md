@@ -9,11 +9,7 @@ The code is designed to query the following data:
 
 ## University College London and TDA
 
-There is little in the code that ties it to the iRODS system. All iRODS interaction is limited to a single fabric tasks, and does not happen at runtime. Data is fetched by HTTP (from UCL's WOS), however, this could be easily changed. The majority of work in this version of the code has gone into parsing and manipulating the Issue and Article XML.
-
-Currently, the iRODS and HPC-related components are only compatible with UCL's internal resources including their Legion HPC resource. However, the code can be run standalone also.
-
-### Architecture Motivation
+This project uses batched Apache PySpark queries on Legion to run queries over the Times Digital Archive. It is assumed that all queries are grouped by year, so that the results of different years can be concatenated together without any processing. If that is not the case, the code can still be used, but it must be run all as one job.
 
 The goal of this code, where the compute is not done as a single PySpark run, but rather as a larger number of smaller, single node, PySpark executions has mutiple reasons:
 
