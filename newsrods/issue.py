@@ -31,7 +31,7 @@ class Issue(object):
             self.page_count = 0
             self.day_of_week = ''
             return
-        except error:
+        except Exception as error:
             try:
                 self.tree = etree.parse(stream, parser)
             except Exception as error2:
