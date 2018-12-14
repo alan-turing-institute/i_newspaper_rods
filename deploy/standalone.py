@@ -6,6 +6,7 @@ import os
 import pandas as pd
 from fabric.api import task, env, execute, lcd, local
 
+DEPLOY_DIR = "standalone"
 
 @task
 def setup(query, datafile, years_per_chunk=1e10, number_oid=-1):
@@ -21,9 +22,9 @@ def install(query, datafile):
     '''
     Run the tests
     '''
-    local('rm -rf ' + env.standalone_deploy_dir)
-    local('mkdir -p ' + env.standalone_deploy_dir)
-    with lcd(env.standalone_deploy_dir):  # pylint: disable=not-context-manager
+    local('rm -rf ' + DEPLOY_DIR)
+    local('mkdir -p ' + DEPLOY_DIR)
+    with lcd(DEPLOY_DIR):  # pylint: disable=not-context-manager
         local('cp -r ../newsrods .')
         local('cp ../' + query + ' ./newsrods/query.py')
         local('cp ../' + datafile + ' input.data')
@@ -37,7 +38,7 @@ def test():
     '''
     Run the query on the sub set of files
     '''
-    with lcd(env.standalone_deploy_dir):  # pylint: disable=not-context-manager
+    with lcd(DEPLOY_DIR):  # pylint: disable=not-context-manager
         local('pyspark < newsrods/standalone_runner.py')
 
 
@@ -46,5 +47,5 @@ def pytest():
     '''
     Run the pytest tests
     '''
-    with lcd(env.standalone_deploy_dir):  # pylint: disable=not-context-manager
+    with lcd(DEPLOY_DIR):  # pylint: disable=not-context-manager
         local('py.test')
