@@ -10,10 +10,10 @@
 #$ -wd ${run_at}
 #$ -t 1-${last}
 
-module load python2/recommended
+module load python3/recommended
 module load rsd-modules
 module load spark
 
 echo "Running $JOB_NAME $SGE_TASK_ID"
 
-pyspark < newsrods/remote_runner.py
+PYSPARK_PYTHON=python3 pyspark < newsrods/remote_runner.py
