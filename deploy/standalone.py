@@ -1,5 +1,5 @@
 '''
-Set up to run standalone without use of IRODS.
+Set up to run standalone.
 '''
 
 import os
