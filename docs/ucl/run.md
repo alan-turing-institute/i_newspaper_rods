@@ -12,7 +12,7 @@
 Any query can be tested on your local machine, using a tiny subset of the total file archive. This is achieved using: 
 
 ```bash
-USER=<gpfs_username> fab run_local -u ccearkl -d analysis/place_words.csv -q queries/words_per_year.py
+USER=<gpfs_username> fab -f ucl_fabfile.py run_local -u ccearkl -d analysis/place_words.csv -q queries/words_per_year.py
 ```
 
 For this to work you must have password-less ssh access from your machine to GPFS set up.
@@ -28,5 +28,5 @@ For this to work you must have password-less ssh access from legion to GPFS set 
 You can run the program to run with:
 
 ```bash
-USER=<gpfs_username>  fab -H "<username>@legion.rc.ucl.ac.uk" run_remote -n 10 -u ccearkl -d analysis/place_words.csv -q queries/words_per_year.py -y 3
+USER=<gpfs_username>  fab -f ucl_fabfile.py -H "<username>@legion.rc.ucl.ac.uk" run_remote -n 10 -u ccearkl -d analysis/place_words.csv -q queries/words_per_year.py -y 3
 ```
