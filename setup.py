@@ -1,15 +1,15 @@
-'''
+"""
 This is the project specification for setuptools
-'''
+"""
 
 import os
 from setuptools import setup
 
 
 def read(fname):
-    '''
+    """
     Read a file relative the current directory and return its contents
-    '''
+    """
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
@@ -19,10 +19,10 @@ setup(
     author="James Hetherington",
     author_email="j.hetherington@ucl.ac.uk",
     description=(
-        "Harness for iRods cluster map/reduce analysis of newspaper corpus"),
+        "Harness for Apache Spark analysis of newspaper corpus"),
     license="MIT",
     keywords="digital humanities research newspapers",
-    url="http://development.rc.ucl.ac.uk/",
+    url="https://github.com/alan-turing-institute/i_newspaper_rods",
     packages=['newsrods'],
     long_description=read('README.md'),
     classifiers=[
