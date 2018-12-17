@@ -6,7 +6,7 @@ the number of articles per year.
 from operator import add
 
 
-def do_query(issues, _):
+def do_query(issues, _, _log):
     '''
     Get the count of words by articles by year
     '''

@@ -9,7 +9,7 @@ from operator import add
 import re
 
 
-def do_query(issues, interesting_words_file):
+def do_query(issues, interesting_words_file, _log):
     '''
     Get the text which matches a given regex in an issue.
     '''

@@ -21,8 +21,9 @@ def main():
     conf.setAppName("Newspapers")
     conf.set("spark.cores.max", num_cores)
     context = SparkContext(conf=conf)
+    log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)
     issues = get_streams(context, num_cores, source="oids.txt")
-    results = do_query(issues, 'input.data')
+    results = do_query(issues, 'input.data', log)
 
     with open('result.yml', 'w') as result_file:
         result_file.write(yaml.safe_dump(dict(results)))

@@ -7,7 +7,7 @@ from operator import add
 import re
 
 
-def do_query(issues, interesting_words_file):
+def do_query(issues, interesting_words_file, _log):
     '''
     Get number of articles which contain a given word a year.
     '''
