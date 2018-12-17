@@ -1,6 +1,6 @@
-'''
+"""
 Module to load and read the files using Spark.
-'''
+"""
 
 from newsrods.issue import Issue
 from requests import get
@@ -15,17 +15,21 @@ def open_stream(url):
 
 def get_streams(context, num_cores=1,
                 source="oids.txt"):
-    '''
-    Turn a list of oids in a file into a RDD of Issues.
-    '''
-    oids = [oid.strip() for oid in list(open(source))]
-    are_urls = len(oids) > 0 and \
-        (oids[0].lower().startswith("http://") or \
-         oids[0].lower().startswith("https://"))
-    rddoids = context.parallelize(oids, num_cores)
+    """
+    Turn a list of filenames in a file into a RDD of Issues.
+
+    If the first file starts with "http://" or "https://" then
+    all files are assumed to be URLs, else all are assumed to be
+    file paths.
+    """
+    filenames = [filename.strip() for filename in list(open(source))]
+    are_urls = len(filenames) > 0 and \
+        (filenames[0].lower().startswith("http://") or \
+         filenames[0].lower().startswith("https://"))
+    rdd_filenames = context.parallelize(filenames, num_cores)
     if (are_urls):
-        issues = rddoids.map(lambda url: open_stream(url)) \
+        issues = rdd_filenames.map(lambda url: open_stream(url)) \
                             .map(lambda raw: Issue(raw))
-    else:  # file paths
-        issues = rddoids.map(lambda file_name: Issue(file_name))
+    else:
+        issues = rdd_filenames.map(lambda file_name: Issue(file_name))
     return issues
