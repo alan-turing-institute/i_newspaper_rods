@@ -5,7 +5,7 @@ A runner to run the analysis directly on remotes using
 from os import environ
 
 from newsrods.query import do_query
-from newsrods.sparkrods import get_streams
+from newsrods.ucl_sparkrods import get_streams
 
 from pyspark import SparkContext
 
