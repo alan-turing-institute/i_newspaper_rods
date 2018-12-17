@@ -11,15 +11,15 @@ fab standalone.setup:query=queries/articles_containing_words.py,datafile=query_a
 You should see:
 
 ```bash
-============================= test session starts ==============================
-platform linux2 -- Python 2.7.14, pytest-3.3.2, py-1.5.2, pluggy-0.6.0
-rootdir: /home/centos/i_newspaper_rods, inifile:
-collected 5 items
+============================= test session starts =============================
+platform linux2 -- Python 2.7.13, pytest-3.7.1, py-1.5.4, pluggy-0.7.1
+rootdir: /home/users/michaelj/i_new_ucl, inifile:
+collected 6 items
 
-newsrods/test/test_article.py .                                          [ 20%]
-newsrods/test/test_issue.py ....                                         [100%]
+newsrods/test/test_article.py ..                                        [ 33%]
+newsrods/test/test_issue.py ....                                        [100%]
 
-=========================== 5 passed in 5.31 seconds ===========================
+========================== 6 passed in 7.14 seconds ===========================
 ```
 
 ## Using `pytest`
@@ -34,13 +34,13 @@ pytest
 You should see:
 
 ```
-============================= test session starts ==============================
-platform linux2 -- Python 2.7.14, pytest-3.3.2, py-1.5.2, pluggy-0.6.0
-rootdir: /home/centos/i_newspaper_rods, inifile:
-collected 5 items
+============================= test session starts =============================
+platform linux2 -- Python 2.7.13, pytest-3.7.1, py-1.5.4, pluggy-0.7.1
+rootdir: /home/users/michaelj/i_new_ucl, inifile:
+collected 6 items
 
-newsrods/test/test_article.py .                                          [ 20%]
-newsrods/test/test_issue.py ....                                         [100%]
+newsrods/test/test_article.py ..                                        [ 33%]
+newsrods/test/test_issue.py ....                                        [100%]
 
-=========================== 5 passed in 5.31 seconds ===========================
+========================== 6 passed in 7.14 seconds ===========================
 ```
