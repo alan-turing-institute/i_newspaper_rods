@@ -160,15 +160,44 @@ zip -r newsrods.zip newsrods/
 nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
 ```
 
-Expected results for `oids.txt`:
+Expected results for `oids.txt` with all `0000164- The Courier and Argus/*.xml` files:
 
 ```
-0000164- The Courier and Argus/0000164_19070603.xml
-0000164- The Courier and Argus/0000164_19151123.xml
+find /mnt/lustre/<your-urika-username>/blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/* -name "*xml" > oids.txt
+```
+```
+1901:
+- [krakatoa, 1]
+1902:
+- [krakatoa, 6]
+1908:
+- [krakatoa, 1]
+1912:
+- [krakatoa, 1]
+1913:
+- [krakatau, 1]
+1916:
+- [krakatau, 1]
+1924:
+- [krakatoa, 1]
 ```
 
+Run:
+
+```bash
+fab standalone.setup:query=queries/article_xml_with_words.py,datafile=query_args/interesting_words.txt
+cd standalone
+zip -r newsrods.zip newsrods/
+nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
 ```
-{}
+
+Expected results for `oids.txt` with all `0000164- The Courier and Argus/*.xml` files:
+
+```
+wc result.yml
+```
+```
+  9752  24978 863023 result.yml
 ```
 
 `results.xml` will contain XML fragments with articles matching the query, indexed by timestamp. These can be converted into a JSON document with both the matching articles and metadata about each article as follows:
