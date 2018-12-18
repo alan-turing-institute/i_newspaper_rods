@@ -32,7 +32,7 @@ root                     /opt/cray/anaconda3/4.1.1
 Install dependencies:
 
 ```bash
-cd cluster-code
+cd i_newspaper_rods
 conda install -c anaconda --file requirements.txt
 ```
 
