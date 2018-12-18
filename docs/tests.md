@@ -13,7 +13,7 @@ You should see:
 ```bash
 ============================= test session starts =============================
 platform linux2 -- Python 2.7.13, pytest-3.7.1, py-1.5.4, pluggy-0.7.1
-rootdir: /home/users/michaelj/i_new_ucl, inifile:
+rootdir: /home/users/<user>/i_new_ucl, inifile:
 collected 6 items
 
 newsrods/test/test_article.py ..                                        [ 33%]
@@ -36,7 +36,7 @@ You should see:
 ```
 ============================= test session starts =============================
 platform linux2 -- Python 2.7.13, pytest-3.7.1, py-1.5.4, pluggy-0.7.1
-rootdir: /home/users/michaelj/i_new_ucl, inifile:
+rootdir: /home/users/<user>/i_new_ucl, inifile:
 collected 6 items
 
 newsrods/test/test_article.py ..                                        [ 33%]
