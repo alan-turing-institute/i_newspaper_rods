@@ -13,7 +13,7 @@ find $HOME/blpaper/xmls -name "*.xml" > files.txt
 * Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/blpaper/xmls -name "*.xml" > files.txt
+find /mnt/lustre/<user>/blpaper/xmls -name "*.xml" > files.txt
 ```
 
 Check:
@@ -35,8 +35,8 @@ You should see the following:
 * Urika:
 
 ```
-/mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/0000164_19070603.xml
-/mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/0000164_19151123.xml
+/mnt/lustre/<user>/blpaper/xmls/0000164- The Courier and Argus/0000164_19070603.xml
+/mnt/lustre/<user>/blpaper/xmls/0000164- The Courier and Argus/0000164_19151123.xml
 ...
 ```
 
@@ -57,7 +57,7 @@ find $HOME/blpaper/xmls/0000164- The Courier and Argus/ -name "*.zip" > files.tx
 * Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/ -name "*.zip" > files.txt
+find /mnt/lustre/<user>/blpaper/xmls/0000164- The Courier and Argus/ -name "*.zip" > files.txt
 ```
 
 ---
@@ -162,7 +162,7 @@ fab standalone.prepare:query=queries/articles_containing_words.py,datafile=query
 Expected results for `files.txt` with all `0000164- The Courier and Argus/*.xml` files:
 
 ```
-find /mnt/lustre/<your-urika-username>/blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/* -name "*xml" > files.txt
+find /mnt/lustre/<user>/blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/* -name "*xml" > files.txt
 ```
 ```
 1901:
@@ -262,10 +262,10 @@ and see:
 then check the permissions of your data files. This can arise if, for example, your data file has permissions like:
 
 ```bash
-ls -l /mnt/lustre/<your-urika-username>/blpaper/0000164_19010101.xml
+ls -l /mnt/lustre/<user>/blpaper/0000164_19010101.xml
 ```
 ```
----------- 1 <your-urika-username> at01 3374189 May 31 13:57
+---------- 1 <user> at01 3374189 May 31 13:57
 ```
 
 ---
