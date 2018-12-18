@@ -1,13 +1,32 @@
-def mapper(issue):
-    prof_matches = 0
-    professor_matches = 0
-    for article in issue.articles:
-        for word in article.words:
-            lword = word.lower()
-            if lword == "prof" or lword == "prof.":
-                prof_matches += 1
-            elif lword == "professor":
-                professor_matches += 1
-    return {issue.date.year: [prof_matches, professor_matches]}
+"""
+This module counts the number of articles that per year that contain
+the word "prof", "prof." or "professor".
+"""
 
-reducer = merge_under(double_sum)
+from operator import add
+import re
+
+
+def do_query(issues, interesting_words_file, _log):
+    """
+    Get number of articles which contain the word "prof", "prof."
+    or "professor".
+    """
+    words = ["prof", "prof.", "professor"]
+    # Map each article in each issue to a year of publication
+    articles = issues.flatMap(lambda issue: [(issue.date.year, article) for
+                                             article in issue.articles])
+    # Add 1 record for each word that appears in each article in each year
+    interest = articles.flatMap(lambda (year, article):
+                                [((year, word), 1) for word in
+                                 words if word in (w.lower() for w in article.words)])
+    # Add sum the year-word counts, and change the format for output
+    interesting_by_year = interest \
+        .reduceByKey(add) \
+        .map(lambda (year_word, count): (year_word[0],
+                                         (year_word[1].replace(r'\b', ''),
+                                          count))) \
+        .groupByKey() \
+        .map(lambda (year, data): (year, list(data))) \
+        .collect()
+    return interesting_by_year
