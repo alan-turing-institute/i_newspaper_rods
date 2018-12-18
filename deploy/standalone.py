@@ -38,13 +38,13 @@ def prepare(filenames="../files.txt", query="", datafile=""):
 
 
 @task
-def submit():
+def submit(num_cores=1):
     """
     Submit the query to Spark.
     """
     with lcd(DEPLOY_DIR):  # pylint: disable=not-context-manager
         local('zip -r ./newsrods.zip newsrods')
-        local("nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &")
+        local("nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py " + str(num_cores) + " > log.txt &")
 
 
 @task
