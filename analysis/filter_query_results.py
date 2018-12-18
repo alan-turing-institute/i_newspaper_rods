@@ -3,7 +3,7 @@ Process XML fragments with articles matching some query into a JSON document wit
 
 Usage:
 
-    python extractOnlyText.py <NEWSPAPER_FILE> <INPUT_FILE> <OUTPUT_FILE>
+    python filter_query_results.py <NEWSPAPER_FILE> <INPUT_FILE> <OUTPUT_FILE>
 
 where:
 
