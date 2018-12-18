@@ -21,7 +21,7 @@ def main():
 
     log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)
 
-    issues = get_streams(context, username=environ['USER'], source='oids.txt')
+    issues = get_streams(context, username=environ['USER'], source='files.txt')
     results = do_query(issues, 'input.1.data', log)
 
     with open('result.1.yml', 'w') as result_file:

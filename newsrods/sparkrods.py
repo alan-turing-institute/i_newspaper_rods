@@ -14,7 +14,7 @@ def open_stream(url):
 
 
 def get_streams(context, num_cores=1,
-                source="oids.txt"):
+                source="files.txt"):
     """
     Turn a list of filenames in a file into a RDD of Issues.
 

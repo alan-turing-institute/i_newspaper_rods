@@ -13,7 +13,7 @@ from newsrods.issue import Issue
 DATA_STORE_HOST = 'live.rd.ucl.ac.uk'
 
 
-def get_streams(context, username, source='oids.txt'):
+def get_streams(context, username, source='files.txt'):
     """
     Given a Spark Context, a username to the research data store GPFS
     which has passworldless ssh keys already set up, and a source file
@@ -33,6 +33,6 @@ def get_streams(context, username, source='oids.txt'):
         fs.close()
         return issue
 
-    rddoids = context.parallelize(filenames)
-    issues = rddoids.map(filename_to_issue)
+    rdds = context.parallelize(filenames)
+    issues = rdds.map(filename_to_issue)
     return issues

@@ -2,24 +2,24 @@
 
 ## Specify data files to query
 
-Populate `oids.txt` with the paths to the data files e.g.:
+Populate `files.txt` with the paths to the data files e.g.:
 
 * Local:
 
 ```bash
-find $HOME/blpaper/xmls -name "*.xml" > oids.txt
+find $HOME/blpaper/xmls -name "*.xml" > files.txt
 ```
 
 * Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/blpaper/xmls -name "*.xml" > oids.txt
+find /mnt/lustre/<your-urika-username>/blpaper/xmls -name "*.xml" > files.txt
 ```
 
 Check:
 
 ```bash
-cat oids.txt
+cat files.txt
 ```
 
 
@@ -52,13 +52,13 @@ Alternatively, you can run `find` over a subset of the paths:
 * Local:
 
 ```bash
-find $HOME/blpaper/xmls/0000164- The Courier and Argus/ -name "*.zip" > oids.txt
+find $HOME/blpaper/xmls/0000164- The Courier and Argus/ -name "*.zip" > files.txt
 ```
 
 * Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/ -name "*.zip" > oids.txt
+find /mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/ -name "*.zip" > files.txt
 ```
 
 ---
@@ -77,7 +77,7 @@ fab standalone.setup:query=queries/<QUERY>.py,datafile=query_args/<DATA>.txt
 
 * `newsrods`: a copy of `newrods`.
 * `newsrods/query.py`: a copy of the `query` i.e. `queries/<QUERY>.py`.
-* `oids.txt`: a copy of `oids.txt`.
+* `files.txt`: a copy of `files.txt`.
 * `input.data`: a copy of the file specifed as the `datafile` argument e.g. `query_args/<DATA>.txt`.
 
 Run using `pyspark` (local only):
@@ -125,7 +125,7 @@ zip -r newsrods.zip newsrods/
 nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
 ```
 
-Expected results for `oids.txt`:
+Expected results for `files.txt`:
 
 ```
 0000164- The Courier and Argus/0000164_19070603.xml
@@ -160,10 +160,10 @@ zip -r newsrods.zip newsrods/
 nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
 ```
 
-Expected results for `oids.txt` with all `0000164- The Courier and Argus/*.xml` files:
+Expected results for `files.txt` with all `0000164- The Courier and Argus/*.xml` files:
 
 ```
-find /mnt/lustre/<your-urika-username>/blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/* -name "*xml" > oids.txt
+find /mnt/lustre/<your-urika-username>/blpaper/xmls/0000164-\ The\ Courier\ and\ Argus/* -name "*xml" > files.txt
 ```
 ```
 1901:
@@ -191,7 +191,7 @@ zip -r newsrods.zip newsrods/
 nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
 ```
 
-Expected results for `oids.txt` with all `0000164- The Courier and Argus/*.xml` files:
+Expected results for `files.txt` with all `0000164- The Courier and Argus/*.xml` files:
 
 ```
 wc result.yml

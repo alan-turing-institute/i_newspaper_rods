@@ -21,7 +21,7 @@ from pandas import read_csv
 CORPUS_ROOT = '/mnt/gpfs/live/ritd-ag-project-rd00hn-raleg13/'
 DATA_SERVER = 'live.rd.ucl.ac.uk'
 LOCAL_DEPLOY_DIR = 'results'
-OID_FILE = 'oids.txt'
+FILE_NAMES = 'files.txt'
 
 
 @task
@@ -71,17 +71,17 @@ def storeids(number, username):
                           echo=False, err_stream=errdata,
                           out_stream=indata)
     if data.return_code != 0:
-        print('Error in retrieving list of oids')
+        print('Error in retrieving list of filenames')
         errdata.seek(SEEK_SET)
         print(errdata.read())
         Exit(-1)
     indata.seek(SEEK_SET)
-    with open(join(LOCAL_DEPLOY_DIR, OID_FILE), 'w') as oid_file:
+    with open(join(LOCAL_DEPLOY_DIR, FILE_NAMES), 'w') as file_names:
         while True:
             line = indata.readline()
             if not line:
                 break
-            oid_file.write(line)
+            file_names.write(line)
     connection.close()
 
 
@@ -110,7 +110,7 @@ def breakup(years_per_chunk, min_year, max_year):
     Break up the input based on the year of output
     """
     print('Pruning years with min year', min_year, 'and max year', max_year)
-    all_files = read_csv(join(LOCAL_DEPLOY_DIR, OID_FILE),
+    all_files = read_csv(join(LOCAL_DEPLOY_DIR, FILE_NAMES),
                          header=None, names=['Path'])
     all_files = all_files.assign(Year=all_files.
                                  Path.
@@ -127,7 +127,7 @@ def breakup(years_per_chunk, min_year, max_year):
     last = 0
     for group_id, subtable in all_files.groupby('FileIndex'):
         subtable.reset_index(drop=True).Path.to_csv(join(LOCAL_DEPLOY_DIR,
-                                                         'oids.') +
+                                                         'files.') +
                                                     str(group_id) +
                                                     '.txt', header=False,
                                                     index=False)

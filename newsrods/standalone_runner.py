@@ -22,7 +22,7 @@ def main():
     conf.set("spark.cores.max", num_cores)
     context = SparkContext(conf=conf)
     log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)
-    issues = get_streams(context, num_cores, source="oids.txt")
+    issues = get_streams(context, num_cores, source="files.txt")
     results = do_query(issues, 'input.data', log)
 
     with open('result.yml', 'w') as result_file:

@@ -23,7 +23,7 @@ def main():
 
     issues = get_streams(context,
                          os.environ['USER'],
-                         source='oids.{}.txt'
+                         source='files.{}.txt'
                          .format(os.environ['SGE_TASK_ID']))
     results = do_query(issues, 'input.1.data', log)
 
