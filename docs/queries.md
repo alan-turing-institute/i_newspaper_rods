@@ -22,7 +22,6 @@ Check:
 cat files.txt
 ```
 
-
 You should see the following:
 
 * Local, where `<HOME>` is the path to your home directory, where you mounted the data:
@@ -45,7 +44,7 @@ You should see the following:
 
 ## Specify a subset of data files to query
 
-For experimentation, you may find it useful to run queries across a subset of the data. For examplnm you can hard-code the paths.
+For experimentation, you may find it useful to run queries across a subset of the data. For example, you can hard-code the paths.
 
 Alternatively, you can run `find` over a subset of the paths:
 
@@ -70,15 +69,15 @@ Queries are run as follows, where `<QUERY>` is the name of a query and `<DATA>` 
 Create job for Spark:
 
 ```bash
-fab standalone.setup:query=queries/<QUERY>.py,datafile=query_args/<DATA>.txt
+fab standalone.prepare:query=queries/<QUERY>.py[,datafile=query_args/<DATA>.txt][,filenames=<PATH_TO_FILENAMES_FILE>]
 ```
 
 `fab` sets up a `standalone` directory with the following format:
 
-* `newsrods`: a copy of `newrods`.
-* `newsrods/query.py`: a copy of the `query` i.e. `queries/<QUERY>.py`.
-* `files.txt`: a copy of `files.txt`.
-* `input.data`: a copy of the file specifed as the `datafile` argument e.g. `query_args/<DATA>.txt`.
+* `files.txt`: copy of <PATH_TO_FILENAMES_FILE>. Optional. Default: `files.txt`
+* `newsrods`: copy of `newrods`
+* `newsrods/query.py`: copy of `queries/<QUERY>.py`
+* `input.data`: copy of `<DATA>.txt`. Whether this is needed depends on what <<QUERY>.py` is being used.
 
 Run using `pyspark` (local only):
 
@@ -90,9 +89,15 @@ pyspark < newsrods/standalone_runner.py
 Run using `spark-submit`:
 
 ```bash
+fab standalone.submit:num_cores=144
+```
+
+Run using `spark-submit` (alternative):
+
+```bash
 cd standalone
 zip -r newsrods.zip newsrods/
-nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
+nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > log.txt &
 ```
 
 **Note:**
@@ -104,6 +109,7 @@ nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > o
 Check results:
 
 ```bash
+cd standalone
 cat result.yml 
 ```
 
@@ -111,18 +117,14 @@ cat result.yml
 
 ## Available queries
 
-The available queries, which can be substituted into `<QUERY>`, include the fol
-lowing.
+The available queries, which can be substituted into `<QUERY>`, include the following.
 
 ### Articles containing gender words
 
 Run:
 
 ```bash
-fab standalone.setup:query=queries/articles_containing_words.py,datafile=query_args/interesting_gender_words.txt
-cd standalone
-zip -r newsrods.zip newsrods/
-nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
+fab standalone.prepare:query=queries/articles_containing_words.py,datafile=query_args/interesting_gender_words.txt standalone.submit:num_cores=144
 ```
 
 Expected results for `files.txt`:
@@ -154,10 +156,7 @@ head result.yml
 Run:
 
 ```bash
-fab standalone.setup:query=queries/articles_containing_words.py,datafile=query_args/interesting_words.txt
-cd standalone
-zip -r newsrods.zip newsrods/
-nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
+fab standalone.prepare:query=queries/articles_containing_words.py,datafile=query_args/interesting_words.txt standalone.submit:num_cores=144
 ```
 
 Expected results for `files.txt` with all `0000164- The Courier and Argus/*.xml` files:
@@ -185,10 +184,7 @@ find /mnt/lustre/<your-urika-username>/blpaper/xmls/0000164-\ The\ Courier\ and\
 Run:
 
 ```bash
-fab standalone.setup:query=queries/article_xml_with_words.py,datafile=query_args/interesting_words.txt
-cd standalone
-zip -r newsrods.zip newsrods/
-nohup spark-submit --py-files newsrods.zip newsrods/standalone_runner.py 144 > output_submission &
+fab standalone.prepare:query=queries/article_xml_with_words.py,datafile=query_args/interesting_words.txt standalone.submit:num_cores=144
 ```
 
 Expected results for `files.txt` with all `0000164- The Courier and Argus/*.xml` files:
@@ -244,7 +240,7 @@ cmp sorted_results1.yml sorted_results2.yml
 A quick-and-dirty way to get this number is to run:
 
 ```bash
-grep Exec output_submission | wc -l
+grep Exec log.txt | wc -l
 ```
 
 ---
@@ -276,7 +272,7 @@ ls -l /mnt/lustre/<your-urika-username>/blpaper/0000164_19010101.xml
 
 ## Troubleshooting: `ImportError: No module named api`
 
-If, when running `fab` you see:
+If running `fab` you see:
 
 ```bash
 ImportError: No module named api
@@ -294,7 +290,7 @@ It should be 1.x e.g. 1.14.0 and not 2.x. Fabric changed between version 1 and 2
 
 ## Troubleshooting: `pyspark: command not found`
 
-If when running `fab standalone` you get:
+If running `fab standalone` locally you get:
 
 ```bash
 ...

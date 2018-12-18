@@ -5,7 +5,7 @@
 To run unit tests using `fab`, run:
 
 ```bash
-fab standalone.setup:query=queries/articles_containing_words.py,datafile=query_args/interesting_gender_words.txt standalone.pytest
+fab standalone.setup standalone.pytest
 ```
 
 You should see:
