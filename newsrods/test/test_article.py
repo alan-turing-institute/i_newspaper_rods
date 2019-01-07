@@ -1,35 +1,34 @@
 """
-Tests for Article
+newsrods.article.Article tests.
 """
 
-import os
 from unittest import TestCase
 
-from ..issue import Issue
+from newsrods.test.fixtures import open_file
+from newsrods.issue import Issue
 
 
-class TestPage(TestCase):
+class TestArticle(TestCase):
     """
-    Test class for Article
+    newsrods.article.Article tests.
     """
 
     def setUp(self):
         """
         Load the standard test file
         """
-        with open(os.path.join(os.path.dirname(__file__),
-                               'fixtures', '2000_04_24.xml')) as fixture:
-            issue = Issue(fixture)
+        source = open_file('2000_04_24.xml')
+        issue = Issue(source)
         self.article = issue.articles[0]
 
     def test_words_in_article(self):
         """
-        Check that the article length is correct
+        Check that the article length is correct.
         """
-        assert len(self.article.words) == 18
+        self.assertEqual(18, len(self.article.words))
 
     def test_ocr_quality(self):
         """
-        Make sure that the ocr quality is read
+        Make sure that the OCR quality is read.
         """
-        assert self.article.quality == 0
+        self.assertEqual(0, self.article.quality)

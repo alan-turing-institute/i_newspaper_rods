@@ -59,7 +59,7 @@ def write_json_articles(json_file, json_articles):
 
 def process_query_results(query_results, newspapers):
     articles = {}
-    for date_time, match_articles in query_results.items():
+    for date_time, match_articles in list(query_results.items()):
         day = str(date_time.date())
         articles[day] = []
         for match_article in match_articles:
@@ -75,14 +75,14 @@ def process_query_results(query_results, newspapers):
             id_newspaper = page_total[0].split("_")[:1]
             for newspaper in newspapers:
                 if "".join(id_newspaper) in newspaper:
-                    id_name = newspaper 
+                    id_name = newspaper
             article = {
-                "title":" ".join(title).replace(' - ', ''),
-                "page":" ".join(page).replace(' - ', ''),
-                "content":" ".join(content).replace(' - ', ''),
+                "title": " ".join(title).replace(' - ', ''),
+                "page": " ".join(page).replace(' - ', ''),
+                "content": " ".join(content).replace(' - ', ''),
                 "id_newspaper": "".join(id_newspaper),
                 "id_name": id_name,
-                "id_issue":"_".join(id_xml)}
+                "id_issue": "_".join(id_xml)}
             articles[day].append(article)
     return articles
 

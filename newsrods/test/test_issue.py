@@ -1,30 +1,24 @@
 """
-Tests for Issue
+newsrods.issue.Issue tests.
 """
 
-import os
-import os.path
 from unittest import TestCase
-import urllib2
-import urlparse
 
-from ..issue import Issue
+from newsrods.test.fixtures import open_file
+from newsrods.issue import Issue
 
 
 class TestIssue(TestCase):
     """
-    Test for the Issue class
+    newsrods.issue.Issue tests.
     """
 
     def setUp(self):
         """
-        Load in the test file
+        Load the standard test file
         """
-        url = os.path.join(os.path.dirname(__file__),
-                           'fixtures', '2000_04_24.xml')
-        url = urlparse.urljoin("file:", url)
-        fixture = urllib2.urlopen(url)
-        self.issue = Issue(fixture)
+        source = open_file('2000_04_24.xml')
+        self.issue = Issue(source)
 
     def test_date(self):
         """
@@ -36,18 +30,18 @@ class TestIssue(TestCase):
 
     def test_page_count(self):
         """
-        Test that the page count is correct
+        Test that the page count is correct.
         """
-        assert self.issue.page_count == 88
+        self.assertEqual(88, self.issue.page_count)
 
     def test_day_of_week(self):
         """
-        Test that the day of the week is correct
+        Test that the day of the week is correct.
         """
-        assert self.issue.day_of_week == 'Monday'
+        self.assertEqual('Monday', self.issue.day_of_week)
 
     def test_articles_per_issue(self):
         """
-        Test that the articles per issue is correct
+        Test that the articles per issue is correct.
         """
-        assert len(self.issue.articles) == 580
+        self.assertEqual(580, len(self.issue.articles))

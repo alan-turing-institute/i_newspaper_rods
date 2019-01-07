@@ -1,4 +1,7 @@
 """
+Object model representation of XML Article.
+
+
 Module for articles, many of which make up an issue
 """
 
@@ -20,7 +23,7 @@ class Article(object):
         # those is formed by pg (position guide) and p (paragraph) elements.
         # Paras are  made of words (wd).
         self.quality = self.tree.xpath('ocr/text()')
-        if len(self.quality) == 0:
+        if not self.quality:
             self.quality = None
         elif len(self.quality) == 1:
             self.quality = float(self.quality[0])

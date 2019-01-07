@@ -1,5 +1,5 @@
 """
-Module for issues. Each issue is a full newspaper
+Object module representation of XML issue of newspaper.
 """
 
 from datetime import datetime
@@ -11,7 +11,7 @@ from newsrods.article import Article
 
 class Issue(object):
     """
-    Class to represent an issue which is made up or articles
+    Object module representation of XML issue of newspaper.
     """
 
     def __init__(self, stream):
@@ -22,7 +22,7 @@ class Issue(object):
         try:
             self.tree = etree.parse(stream, parser)
         except etree.XMLSyntaxError as error:
-            self.logger.error('Error when parsing %s: %s', error.code,
+            self.logger.error('Error when parsing: %s',
                               error.msg)
             self.tree = None
             self.issue = ''
@@ -83,5 +83,5 @@ class Issue(object):
     def images(self):
         # Iterate through all the pictures' metadata
         # (Size, caption...)
-        for page, image in self.scan_images():
+        for _, image in self.scan_images():
             yield image
