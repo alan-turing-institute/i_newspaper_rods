@@ -219,7 +219,7 @@ The JSON file has the following format:
     ...
 ```
 
-`analysis/BLN_list.txt` is a helperfile with a plain-text list of newspaper names.
+`analysis/BLN_list.txt` is a helperfile with a plain-text list of newspaper names. These match the directory names in the `xmls` directory of the British Library Newspapers data.
 
 ---
 
