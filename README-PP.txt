@@ -6,6 +6,9 @@ To run the queries over the New Zealand Paper Past:
 D=/mnt/lustre/aroubick/PP_XMLs
 for i in `ls $D`; do echo $D/$i; done > files.txt
 mv files.txt ~/i_newspaper_rods/
+
+If prefered, one can also use the provided files-PP.txt file, but it needs to be renamed first:
+mv files-PP.txt files.txt
 ================================================================================
 
 2. queries
