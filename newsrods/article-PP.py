@@ -12,7 +12,7 @@ The XML schema is different, so we need to change the path-to-interesting-conten
 from logging import getLogger
 from datetime import datetime
 from lxml import etree
-
+from pyspark import SparkContext, SparkConf
 
 class Article(object):
     """
@@ -37,15 +37,21 @@ class Article(object):
             self.quality = None
 
 	#======= The stuff that matters: =====
-        # heading of the article:
-        self.title = self.tree.xpath('result/title/text()') #heading of the article:
-        # text of the article:
+        # HEADING OF THE ARTICLE:
+	# (note that the tag <title> is present twice in each article record as
+	# a duplicate of a kind; findtext() however returns only the first occurance
+	# and that sorts it
+        self.title = self.tree.findtext('title')
+        # TEXT OF THE ARTICLE (as one string):
 	self.content = self.tree.findtext('fulltext')
-	# date of publication:
+	# DATE of publication:
 	raw_date = self.tree.findtext('display-date')
  	self.date = datetime.strptime(raw_date, '%d-%m-%Y')
-	# name of the newspaper:	
-	self.papername = self.tree.xpath('result/publisher/publisher/text()')
+	# NAME OF THE NEWSPAPER:	
+	self.papername = self.tree.findtext('publisher/publisher')
+	# TYPE of the article:
+	self.type = self.tree.findtext('dnz-type')
+
 
 	#old stuff that doesn't match anything here:
 	#self.preamble = self.tree.xpath('text/text.preamble/p/wd/text()')
@@ -60,8 +66,9 @@ class Article(object):
     @property
     def words_string(self):
         """
-        Return the full text of the article as a string (in NLA archive this is 	default). Remove all hyphens.
+        Return the full text of the article as a string (in PP archive this is 	
+	default). Remove all hyphens.
         This merges hyphenated word but may cause problems with subordinate
         clauses (The sheep - the really loud one - had just entered my office).
         """
-        return ' '.join(self.content).replace(' - ', '')
+        return self.content.replace(' - ', '')
